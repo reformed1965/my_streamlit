@@ -1,0 +1,33 @@
+import requests
+
+# This function will pass your text to the machine learning model
+# and return the top result with the highest confidence
+def classify(text):
+    key = "554a9520-974a-11ef-994e-b7bbb9cee7ddc7ec4702-fba4-40e2-be7d-4fbab9f9cf8a"
+    url = "https://machinelearningforkids.co.uk/api/scratch/"+ key + "/classify"
+
+    response = requests.get(url, params={ "data" : text })
+
+    if response.ok:
+        responseData = response.json()
+        topMatch = responseData[0]
+        return topMatch
+    else:
+        response.raise_for_status()
+
+
+# CHANGE THIS to something you want your machine learning model to classify
+while True
+    qu = input("호텔에 대해서 궁금한 것을 저에게 물어보세요! 질문이 끝나시면 '나가기'를 입력해주세요.",'맛집')
+    if qu != '' :
+        demo = classify(qu)
+
+        label = demo["class_name"]
+        confidence = demo["confidence"]
+        if confidence >= 70:
+            break
+        print('질문을 이해하지 못했어요. 다시 입력해 주세요>>') 
+if label='food':
+    print('제주 통돼지 삼겹살을 추천합니다.')
+        print('라벨:%s', label)
+        print('신뢰도:%s', confidence)
